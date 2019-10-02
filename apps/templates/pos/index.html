@@ -1,0 +1,41 @@
+{% extends 'base_b.html' %}
+{% set active_page = 'pos' %}
+{% block title %}Semua Pos - primabase{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+{% endblock %}
+{% block content %}
+<section class="content-header">
+<h1>Lokasi Pos <a class="btn btn-outline-primary btn-sm" href="{{ url_for('pos.add',
+_external=True) }}" role="button">Tambah</a></h1>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item">Lokasi Pos</li>
+</ol>
+</section>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Lokasi / Pos</th>
+			<th>Data Terakhir</th>
+			<th>Banyak Data</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+{% for l in all_lokasi %}
+	<tr>
+		<td><span class="fas fa-map-marker-alt"></span> <a href="{{ url_for('pos.show', lokasi=l.id) }}">{{ l.nama }}</a></td>
+		<td>{% if l.periodik[0] %}{{ l.periodik[0].sampling }}{% endif %}</td>
+		<td class="text-right">{{ l.periodik|count }}</td>
+    <td><a class="btn btn-outline-primary btn-sm" href="{{ url_for('pos.edit', lokasi_id=l.id, _external=True) }}">Edit</a> 
+      <a class="btn btn-outline-danger btn-sm" href="{{ url_for('pos.delete', lokasi_id=l.id, _external=True) }}">Delete</a></td>
+	</tr>
+{% else %}
+	<tr>
+		<td class="text-center" colspan="4">
+<a href="add" class="btn btn-primary my-5">Tambah lokasi</a>
+		</td>
+	</tr>
+{% endfor %}
+</table>
+{% endblock content %}

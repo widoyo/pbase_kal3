@@ -1,0 +1,33 @@
+{% extends 'base_p.html' %}
+{% set active_page = 'tma' %}
+{% block content %}
+<section class="content-header">
+<h1>Tinggi Muka Air</h1>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item">Tinggi Muka Air</li>
+</ol>
+</section>
+<table class="table table-hover table-grid">
+	<thead>
+		<tr>
+			<th rowspan="3" class="align-middle">No</th>
+			<th rowspan="3" class="align-middle align-center">Lokasi / Pos</th>
+			<th rowspan="3" class="align-middle">Level Siaga</th>
+			<th colspan="5" class="text-center">Hari {{ sampling }}</th>
+		</tr>
+		<tr>
+			<th colspan="5" class="text-center">Waktu WITA</th>
+		</tr>
+		<tr>
+			<th>06</th>
+			<th>12</th>
+			<th>18</th>
+			<th>00</th>
+			<th>*</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+{% endblock %}

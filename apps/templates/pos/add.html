@@ -1,0 +1,56 @@
+{% from '_render_field.html' import render_field %}
+{% extends 'base_b.html' %}
+{% block extra_head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+{% endblock %}
+{% block content %}
+<section class="content-header">
+<h1>Tambah Lokasi</h1>
+</section>
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <form style="padding: 0px" method="POST" action="">
+      {{ form.hidden_tag() }}
+      {{ render_field(form.nama, class='uk-input', autofocus=True) }}
+      <i>Contoh: <b></b></i>
+      <br><br>
+      {{ render_field(form.jenis, class="form-control") }}
+      <br><br>
+      {{ render_field(form.ll, class='uk-input', id='ll') }}
+      <i>Contoh: <b>-0.8392029,117.0305984</b></i>
+      <br><br>
+      {{ form.submit(class="btn btn-primary") }} <a href="../" class="">batal</a>
+    </form>
+  </div>
+  <div class="col-sm-12 col-md-6" id="mymap" style="height: 450px;">
+  </div>
+</div>
+    <script>
+	var mymap = L.map('mymap').setView([-0.3071288,116.1207351], 8);
+	var bws = L.marker([-0.4867832,117.1204685], 
+		{title:"Kantor BWS Kalimantan III",
+	  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'
+		}).addTo(mymap);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoid2lkb3lvIiwiYSI6ImNqcTNmNGh5NjFlMGk0Mm9iamJxdXIxaHUifQ.hxfPpTyy8g60K9baKtbvRw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox.streets'
+	}).addTo(mymap);
+  var posIcon = L.icon({
+  });
+var marker = L.marker([-0.3071288,116.1207351], 
+	{draggable: true,
+	  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'
+	});
+marker.addTo(mymap);
+	marker.on('dragend', 
+		function(ev){ 
+			var loc = ev.target._latlng;
+			$('#ll').val(loc.lat.toFixed(6) + ", " + loc.lng.toFixed(6));
+		});
+    </script>
+{% endblock %}
