@@ -38,7 +38,7 @@ def index():
                            hujan_sejak=sejak,
                            title='primaBase')
 
-@app.route('/map')
+@app.route('/map/')
 @login_required
 def map():
     lokasis = Lokasi.query.all()

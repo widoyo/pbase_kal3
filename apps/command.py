@@ -10,13 +10,13 @@ from sqlalchemy.exc import IntegrityError
 from apps import app, db
 from apps.models import Device, Raw, Periodik
 
-bws_sul2 = ("bwssul2", "limboto1029")
+my_auth = ("bwskal3", "kal31029")
 
 URL = "https://prinus.net/api/sensor"
 MQTT_HOST = "mqtt.bbws-bsolo.net"
 MQTT_PORT = 14983
-MQTT_TOPIC = "bws-sul2"
-MQTT_CLIENT = "primabase_bwssul2"
+MQTT_TOPIC = "bws-kal3"
+MQTT_CLIENT = ""
 
 
 @app.cli.command()
@@ -42,7 +42,7 @@ def subscribe_topic():
 
 @app.cli.command()
 def fetch_logger():
-    res = requests.get(URL, auth=bws_sul2)
+    res = requests.get(URL, auth=my_auth)
 
     if res.status_code == 200:
         logger = json.loads(res.text)
@@ -65,7 +65,8 @@ def fetch_periodic(sn, sampling):
     sampling_param = ''
     if sampling:
         sampling_param = '&sampling=' + sampling
-    res = requests.get(URL + '/' + sn + '?robot=1' + sampling_param, auth=bws_sul2)
+    res = requests.get(URL + '/' + sn + '?robot=1' + sampling_param,
+                       auth=my_auth)
     data = json.loads(res.text)
     for d in data:
         content = Raw(content=d)
