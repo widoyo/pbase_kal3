@@ -9,7 +9,7 @@ chardet==3.0.4
 Click==7.0
 coverage==4.5.2
 croniter==0.3.28
-cryptography==3.2
+cryptography==39.0.1
 daemonocle==1.0.1
 decorator==4.3.0
 dnspython==1.16.0
